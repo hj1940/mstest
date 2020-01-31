@@ -1,0 +1,14 @@
+.character-container > *{
+  position: absolute;
+}
+
+#rightImg {
+    position: absolute;
+    z-index: 2; /*on top*/
+    opacity: 0.5; /*[0.0-1.0]*/
+    transform: translate(-100%, 0%);
+    -webkit-transform: translate(-100%, 0%);
+    -moz-transform: translate(-100%, 0%);
+    -ms-transform: translate(-100%, 0%);
+    -o-transform: translate(-100%, 0%);
+}

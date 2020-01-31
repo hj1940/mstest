@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  min-width: 1200px;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #ccc;
+}
+
+#top-banner-ad {
+  width: 100%;
+  position: absolute;
+  top: 64px;
+  z-index: 1;
+  display: flex;
+}
+
+#top-banner-ad .ad-spacer {
+  width: 25%;
+  min-width: 400px;
+  margin-right: 32px;
+}
+
+.adsbygoogle {
+  width: 75%;
+}
