@@ -351,6 +351,7 @@ const all = {
     pet: "펫",
     character: "캐릭터",
     name: "이름",
+    highFloraEars : "아크 귀", 
     illiumEars: "일리움 귀",
     mercEars: "메르세데스 귀",
     frame: "프레임",
