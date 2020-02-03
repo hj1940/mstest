@@ -158,7 +158,6 @@ class CharacterCanvasElement extends Component {
               <img
                 src={link}
                 alt=''
-                className='renderable-instance'
                 draggable={false}
                 onClick={onClick}
                 onError={this.showError.bind(this)}

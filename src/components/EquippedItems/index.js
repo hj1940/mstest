@@ -49,8 +49,6 @@ class EquippedItems extends Component {
     /*CharacterList*/
     const listLt = window.getComputedStyle(document.getElementById("listImgLt")).getPropertyValue('background-image');
     const listRt = window.getComputedStyle(document.getElementById("listImgRt")).getPropertyValue('background-image');
-    //const listLt = tListLt.replace("url(", "").replace(")", "");
-    //const listRt = tListRt.replace("url(", "").replace(")", "");
 
     for(let i=0; i<8; i++){
       if(ltColor[i].classList.contains("select") && ltColor[i] != e.target && e.target.classList.contains("lt")){
@@ -72,40 +70,35 @@ class EquippedItems extends Component {
       if(e.target.classList.contains("rt")){
         if(ColorPicked == "black"){
           num = "0";
-          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "red"){
           num = "1";
-          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "orange"){
           num = "2";
-          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "yellow"){
           num = "3";
-          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "grin"){
           num = "4";
-          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "blue"){
           num = "5";
-          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "purple"){
           num = "6";
-          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "brown"){
           num = "7";
-          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }
-
+      //  this.props.equippedItems.push("Hairs");
+        console.log(this.props.equippedItems);
         /*RenderCanvas*/
         if(canvasRt.indexOf(itemId) != -1){
           const str = canvasRt.replace(itemId, silceId+num);
+          document.getElementById("rightImg").setAttribute('crossOrigin', 'Anonymous');
           document.getElementById("rightImg").src = str;
-          document.getElementById("rightImg").style.backgroundImage.crossOrigin = '*';
+          document.getElementById("rtLinkRl").value = str;
         }else{
           if(canvasRt.indexOf(silceId) != -1){
             const s = canvasRt.substr(0, canvasRt.indexOf(silceId)+4) + num + canvasRt.substr(canvasRt.indexOf(silceId)+4+num.length);
+            document.getElementById("rightImg").setAttribute('crossOrigin', 'Anonymous');
             document.getElementById("rightImg").src = s;
-            document.getElementById("rightImg").style.backgroundImage.crossOrigin = '*';
+            document.getElementById("rtLinkRl").value = s;
           }
         }
 
@@ -119,43 +112,36 @@ class EquippedItems extends Component {
             document.getElementById("listImgRt").style.backgroundImage = s;
           }
         }
+
       }else{
         if(ColorPicked == "black"){
           num = "0";
-          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "red"){
           num = "1";
-          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "orange"){
           num = "2";
-          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "yellow"){
           num = "3";
-          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "grin"){
           num = "4";
-          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "blue"){
           num = "5";
-          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "purple"){
           num = "6";
-          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "brown"){
           num = "7";
-          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }
-
+        this.props.equippedItems.Hair.id = silceId+num;
         /*RenderCanvas*/
         if(canvasLt.indexOf(itemId) != -1){
           const str = canvasLt.replace(itemId, silceId+num);
+          document.getElementById("leftImg").setAttribute('crossOrigin', 'Anonymous');
           document.getElementById("leftImg").src = str;
-          document.getElementById("leftImg").style.backgroundImage.crossOrigin = '*';
         }else{
           if(canvasLt.indexOf(silceId) != -1){
             const s = canvasLt.substr(0, canvasLt.indexOf(silceId)+4) + num + canvasLt.substr(canvasLt.indexOf(silceId)+4+num.length);
+            document.getElementById("leftImg").setAttribute('crossOrigin', 'Anonymous');
             document.getElementById("leftImg").src = s;
-            document.getElementById("leftImg").style.backgroundImage.crossOrigin = '*';
           }
         }
 
@@ -166,6 +152,126 @@ class EquippedItems extends Component {
         }else{
           if(listLt.indexOf(silceId) != -1){
             const s = listLt.substr(0, listLt.indexOf(silceId)+4) + num + listLt.substr(listLt.indexOf(silceId)+4+num.length);
+            document.getElementById("listImgLt").style.backgroundImage = s;
+          }
+        }
+      }
+      this.resettingValues.bind();
+    }
+  }
+
+  chgEyeColor(e){
+    const ltColor = document.getElementsByClassName("lte");
+    const rtColor = document.getElementsByClassName("rte");
+    const itemId = document.getElementById("itemIde").value;
+
+    /*RenderCanvas*/
+    const canvasLt = document.getElementById("leftImg").src;
+    const canvasRt = document.getElementById("rightImg").src;
+
+    /*CharacterList*/
+    const listLt = window.getComputedStyle(document.getElementById("listImgLt")).getPropertyValue('background-image');
+    const listRt = window.getComputedStyle(document.getElementById("listImgRt")).getPropertyValue('background-image');
+
+    for(let i=0; i<8; i++){
+      if(ltColor[i].classList.contains("select") && ltColor[i] != e.target && e.target.classList.contains("lte")){
+        this.unselected(ltColor[i]);
+      }
+      if(rtColor[i].classList.contains("select") && rtColor[i] != e.target && e.target.classList.contains("rte")){
+        this.unselected(rtColor[i]);
+      }
+    };
+
+    if(e.target.classList.contains("select")) {
+      console.log("selected already");
+      this.unselected(e.target);
+    }else{
+      this.selected(e.target);
+      var ColorPicked = e.target.classList[1];
+      var silceIdFr = itemId.slice(0,2);
+      var silceIdEd = itemId.slice(3,5);
+      var num = "";
+      if(e.target.classList.contains("rte")){
+        if(ColorPicked == "black"){
+          num = "0";
+        }else if(ColorPicked == "blue"){
+          num = "1";
+        }else if(ColorPicked == "red"){
+          num = "2";
+        }else if(ColorPicked == "grin"){
+          num = "3";
+        }else if(ColorPicked == "brown"){
+          num = "4";
+        }else if(ColorPicked == "emerald"){
+          num = "5";
+        }else if(ColorPicked == "purple"){
+          num = "6";
+        }else if(ColorPicked == "amethyst"){
+          num = "7";
+        }
+
+        /*RenderCanvas*/
+        if(canvasRt.indexOf(itemId) != -1){
+          const str = canvasRt.replace(itemId, silceIdFr+num+silceIdEd);
+          document.getElementById("rightImg").setAttribute('crossOrigin', 'Anonymous');
+          document.getElementById("rightImg").src = str;
+        }else{
+          if(canvasRt.indexOf(silceIdFr) != -1 && canvasRt.indexOf(silceIdEd) != -1){
+            const s = canvasRt.substr(0, canvasRt.indexOf("%22itemId%22%3A"+silceIdFr)+17) + num + canvasRt.substr(canvasRt.indexOf("%22itemId%22%3A"+silceIdFr)+17+num.length);
+            document.getElementById("rightImg").setAttribute('crossOrigin', 'Anonymous');
+            document.getElementById("rightImg").src = s;
+          }
+        }
+
+        /*CharacterList*/
+        if(listRt.indexOf(itemId) != -1){
+          const str = listRt.replace(itemId, silceIdFr+num+silceIdEd);
+          document.getElementById("listImgRt").style.backgroundImage = str;
+        }else{
+          if(listRt.indexOf(silceIdFr) != -1 && listRt.indexOf(silceIdEd) != -1){
+            const s = listRt.substr(0, listRt.indexOf("%22itemId%22%3A"+silceIdFr)+17) + num + listRt.substr(listRt.indexOf("%22itemId%22%3A"+silceIdFr)+17+num.length);
+            document.getElementById("listImgRt").style.backgroundImage = s;
+          }
+        }
+      }else{
+        if(ColorPicked == "black"){
+          num = "0";
+        }else if(ColorPicked == "blue"){
+          num = "1";
+        }else if(ColorPicked == "red"){
+          num = "2";
+        }else if(ColorPicked == "grin"){
+          num = "3";
+        }else if(ColorPicked == "brown"){
+          num = "4";
+        }else if(ColorPicked == "emerald"){
+          num = "5";
+        }else if(ColorPicked == "purple"){
+          num = "6";
+        }else if(ColorPicked == "amethyst"){
+          num = "7";
+        }
+
+        /*RenderCanvas*/
+        if(canvasLt.indexOf(itemId) != -1){
+          const str = canvasLt.replace(itemId, silceIdFr+num+silceIdEd);
+          document.getElementById("leftImg").setAttribute('crossOrigin', 'Anonymous');
+          document.getElementById("leftImg").src = str;
+        }else{
+          if(canvasLt.indexOf(silceIdFr) != -1 && canvasLt.indexOf(silceIdEd) != -1){
+            const s = canvasLt.substr(0, canvasLt.indexOf("%22itemId%22%3A"+silceIdFr)+17) + num + canvasLt.substr(canvasLt.indexOf("%22itemId%22%3A"+silceIdFr)+17+num.length);
+            document.getElementById("leftImg").setAttribute('crossOrigin', 'Anonymous');
+            document.getElementById("leftImg").src = s;
+          }
+        }
+
+        /*CharacterList*/
+        if(listLt.indexOf(itemId) != -1){
+          const str = listLt.replace(itemId, silceIdFr+num+silceIdEd);
+          document.getElementById("listImgLt").style.backgroundImage = str;
+        }else{
+          if(listLt.indexOf(silceIdFr) != -1 && listLt.indexOf(silceIdEd) != -1){
+            const s = listLt.substr(0, listLt.indexOf("%22itemId%22%3A"+silceIdFr)+17) + num + listLt.substr(listLt.indexOf("%22itemId%22%3A"+silceIdFr)+17+num.length);
             document.getElementById("listImgLt").style.backgroundImage = s;
           }
         }
@@ -246,7 +352,33 @@ class EquippedItems extends Component {
                         </div>)
                       : (<div className='equipped-items-item-meta'></div>)
                     }
-
+                    {
+                      (item.typeInfo.subCategory === "Face")
+                      ? (<div className='equipped-items-item-meta-color'>
+                      <input type="hidden" id="itemIde" value={item.id}/>
+                          <div className='equipped-items-item-meta-colors'>
+                            <button className='lte black' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='lte blue' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='lte red' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='lte grin' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='lte brown' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='lte emerald' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='lte purple' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='lte amethyst' onClick={this.chgEyeColor.bind(this)}></button>
+                          </div>
+                          <div className='equipped-items-item-meta-colors'>
+                            <button className='rte black' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='rte blue' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='rte red' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='rte grin' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='rte brown' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='rte emerald' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='rte purple' onClick={this.chgEyeColor.bind(this)}></button>
+                            <button className='rte amethyst' onClick={this.chgEyeColor.bind(this)}></button>
+                          </div>
+                        </div>)
+                      : (<div className='equipped-items-item-meta'></div>)
+                    }
                   </div>
                   <span onClick={this.removeItem.bind(this, item)} className="btn bg-red text-white right"><i className="fa fa-times"></i></span>
                 </div>

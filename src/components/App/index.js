@@ -303,6 +303,7 @@ class App extends Component {
           <span className='item-span' onClick={() => this.onSetSidebarOpen(true)}>&#9776;</span>
           <span className='item-span' onClick={() => this.onSetRightSidebarOpen(true)}>&#9881;</span>
         </div>
+        <input type="hidden" id="rtLinkRl"/>
       { (selectedIndex !== false) ?
         <Sidebar
           sidebar={<ItemListing

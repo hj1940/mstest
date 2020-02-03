@@ -139,6 +139,14 @@
   background-color: #894f00;
 }
 
+.emerald{
+  background-color: #2ad3f3;
+}
+
+.amethyst{
+  background-color: #de26dd;
+}
+
 .equipped-items-item-meta-colors button {
   display: inline-block;
   width: 16px;

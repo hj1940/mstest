@@ -314,17 +314,44 @@ class CharacterEntry extends Component {
     const canvasLt = document.getElementById("leftImg").src;
     const canvasRt = document.getElementById("rightImg").src;
     const imgOpcy = window.getComputedStyle(document.getElementById("rightImg")).getPropertyValue('opacity');
-    //const imgFst = tImgFst.replace("url(", "").replace(")", "");
-    //const imgSnd = tImgSnd.replace("url(", "").replace(")", "");
     const imageSrc = "";
-console.log(canvasLt);
-console.log(canvasRt);
-console.log(imgOpcy);
+
     mergeImages([
       { src: canvasLt },
       { src: canvasRt, opacity: imgOpcy }
-    ]).then(b64 => document.getElementById('bsImg').src = b64);
+    ]).then(b64 => {
+      var img = document.getElementById("bsImg")
+      var imgData = atob(b64.split(",")[1])
+      var len = imgData.length
+      var buf = new ArrayBuffer(len) // 비트를 담을 버퍼를 만든다.
+      var view = new Uint8Array(buf) // 버퍼를 8bit Unsigned Int로 담는다.
+      var blob, i
 
+      for (i = 0; i < len; i++) {
+        view[i] = imgData.charCodeAt(i) & 0xff // 비트 마스킹을 통해 msb를 보호한다.
+      }
+      // Blob 객체를 image/png 타입으로 생성한다. (application/octet-stream도 가능)
+      blob = new Blob([view], { type: "application/octet-stream" })
+
+      if (window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(blob, "new_file_name.png")
+      } else {
+        //var url = URL.createObjectURL(blob);
+        var a = document.createElement("a")
+        a.style = "display: none"
+        //a.href = url;
+        a.href = b64
+        a.download = "new_file_name.png"
+        document.body.appendChild(a)
+        a.click()
+
+        setTimeout(function() {
+          document.body.removeChild(a)
+          //URL.revokeObjectURL(url);
+        }, 100)
+      }
+
+    });
 
   }
 
