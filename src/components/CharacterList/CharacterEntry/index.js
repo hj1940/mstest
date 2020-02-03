@@ -9,6 +9,7 @@ import 'rc-tooltip/assets/bootstrap.css'
 import 'react-tippy/dist/tippy.css';
 import RcTooltip from 'rc-tooltip'
 import Slider from 'rc-slider'
+import mergeImages from 'merge-images';
 
 class CharacterEntry extends Component {
   constructor(props) {
@@ -163,7 +164,15 @@ class CharacterEntry extends Component {
           style={{
             backgroundImage: 'url('+link+')'
           }}
+          id="listImgLt"
           {...otherProps}>&nbsp;</div>
+          <div
+            className={'character ' + (character.visible ? 'disabled ' : 'enabled ') + (isSelected ? 'active' : 'inactive')}
+            style={{
+              backgroundImage: 'url('+link+')'
+            }}
+            id="listImgRt"
+            {...otherProps}>&nbsp;</div>
       </Tooltip>
     )
   }
@@ -249,7 +258,7 @@ class CharacterEntry extends Component {
         <Toggle onChange={this.toggleVisibility.bind(this)} checked={character.visible} />
       </label>
       <label className="section-title">
-        <span>Ears</span>
+        <span>귀 모양</span>
       </label>
       <label>
         <span>{localized.illiumEars}</span>
@@ -270,32 +279,13 @@ class CharacterEntry extends Component {
           checked={character.mercEars} />
       </label>
       <label className="section-title">
-        <span>Additional Options</span>
-      </label>
-      <label>
-        <span>{localized.frame}</span>
-        <Slider
-          value={character.frame || 0}
-          min={0}
-          max={4 - 1}
-          handle={handle}
-          disabled={character.animating}
-          onChange={this.changeFrame.bind(this)} />
+        <span>추가 옵션</span>
       </label>
       <label>
         <span>{localized.animate}</span>
         <Toggle
           onChange={this.changeAnimating.bind(this)}
           checked={character.animating} />
-      </label>
-      <label>
-        <span>{localized.zoom}</span>
-        <Slider
-          value={character.zoom || 1}
-          min={1}
-          max={10}
-          handle={handle}
-          onChange={this.changeZoom.bind(this)} />
       </label>
       <label>
         <span>{localized.addBgToGif}</span>
@@ -307,61 +297,35 @@ class CharacterEntry extends Component {
         <span>{localized.flipHorizontal}</span>
         <Toggle onChange={this.toggleFlipX.bind(this)} checked={character.flipX} />
       </label>
-      <label>
-        <span>{localized.footholdSnapping}</span>
-        <Toggle onChange={this.toggleFHSnap.bind(this)} checked={character.fhSnap || false} />
-      </label>
-      <label>
-        <span>{localized.lock}</span>
-        <Toggle onChange={this.toggleLock.bind(this)} checked={character.locked} />
-      </label>
       <br />
-      <label className="section-title">
-        <span>Spritesheets</span>
-      </label>
-      <a href={`${window.generateAvatarLink(character, 'download')}`} target='_blank'  rel="noopener noreferrer">
-        <div className='download-bar bg-blue'>
-          <div className='equipped-items-item-meta'>
-            <div className='equipped-items-item-meta-name text-white'>{localized.downloadSpriteSheet}</div>
-            <div className='equipped-items-item-meta-category text-white'>({localized.willDownloadZip})</div>
-          </div>
-        </div>
-      </a>
-      <a href={`${window.generateAvatarLink(character, 'download')}&format=2`} target='_blank'  rel="noopener noreferrer">
-        <div className='download-bar bg-blue'>
-          <div className='equipped-items-item-meta'>
-            <div className='equipped-items-item-meta-name text-white'>{localized.downloadMinimalSpriteSheet}</div>
-            <div className='equipped-items-item-meta-category text-white'>({localized.willDownloadZip})</div>
-          </div>
-        </div>
-      </a>
-      <div className="flex">
-        <a className='layered-link' href={`${window.generateAvatarLink(character, 'download')}&format=1`} target='_blank'  rel="noopener noreferrer">
-          <div className='download-bar bg-blue'>
-            <div className='equipped-items-item-meta'>
-              <div className='equipped-items-item-meta-name text-white'>{localized.downloadLayeredSpriteSheet}</div>
-              <div className='equipped-items-item-meta-category text-white'>({localized.willDownloadZip})</div>
-              <div className='equipped-items-item-meta-category text-white bold'>{localized.requiresPDNPlugin}</div>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div className="flex">
-        <a className='layered-link' href={`${window.generateAvatarLink(character, 'download')}&format=3`} target='_blank'  rel="noopener noreferrer">
-          <div className='download-bar bg-blue'>
-            <div className='equipped-items-item-meta'>
-              <div className='equipped-items-item-meta-name text-white'>{localized.downloadMinimalLayeredSpriteSheet}</div>
-              <div className='equipped-items-item-meta-category text-white'>({localized.willDownloadZip})</div>
-              <div className='equipped-items-item-meta-category text-white bold'>{localized.requiresPDNPlugin}</div>
-            </div>
-          </div>
-        </a>
+      <div className="margin-btn-new">
+        <a href="#" className='btn btn-large bg-blue text-white right' onClick={this.imageSaveLocal.bind(this)}>이미지로 저장하기</a>
+        <img src="" id="bsImg" />
       </div>
     </div>
+
     <div className="margin-top-10">
       <a href="#" className='btn btn-large bg-red text-white right' onClick={this.deleteCharacter.bind(this)}>{localized.deleteCharacter}</a>
     </div>
     </div>)
+  }
+
+  imageSaveLocal(){
+    const canvasLt = document.getElementById("leftImg").src;
+    const canvasRt = document.getElementById("rightImg").src;
+    const imgOpcy = window.getComputedStyle(document.getElementById("rightImg")).getPropertyValue('opacity');
+    //const imgFst = tImgFst.replace("url(", "").replace(")", "");
+    //const imgSnd = tImgSnd.replace("url(", "").replace(")", "");
+    const imageSrc = "";
+console.log(canvasLt);
+console.log(canvasRt);
+console.log(imgOpcy);
+    mergeImages([
+      { src: canvasLt },
+      { src: canvasRt, opacity: imgOpcy }
+    ]).then(b64 => document.getElementById('bsImg').src = b64);
+
+
   }
 
   changeIncludeBackground() {

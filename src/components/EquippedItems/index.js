@@ -12,14 +12,7 @@ import Toggle from 'react-toggle'
 import textContent from 'react-addons-text-content'
 
 class EquippedItems extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      rtMixId : '',
-      ltMixId : ''
-    }
-  }
   selected(item){
 
     item.textContent = "∨";
@@ -49,8 +42,15 @@ class EquippedItems extends Component {
     const itemId = document.getElementById("itemId").value;
     const rtImg = document.getElementById("rightImage");
     const ltImg = document.getElementById("leftImage");
+    /*RenderCanvas*/
     const canvasLt = document.getElementById("leftImg").src;
     const canvasRt = document.getElementById("rightImg").src;
+
+    /*CharacterList*/
+    const listLt = window.getComputedStyle(document.getElementById("listImgLt")).getPropertyValue('background-image');
+    const listRt = window.getComputedStyle(document.getElementById("listImgRt")).getPropertyValue('background-image');
+    //const listLt = tListLt.replace("url(", "").replace(")", "");
+    //const listRt = tListRt.replace("url(", "").replace(")", "");
 
     for(let i=0; i<8; i++){
       if(ltColor[i].classList.contains("select") && ltColor[i] != e.target && e.target.classList.contains("lt")){
@@ -72,73 +72,101 @@ class EquippedItems extends Component {
       if(e.target.classList.contains("rt")){
         if(ColorPicked == "black"){
           num = "0";
-          //rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "red"){
           num = "1";
-          //rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "orange"){
           num = "2";
-          //rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "yellow"){
           num = "3";
-          //rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "grin"){
-          //num = "4";
-          //rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          num = "4";
+          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "blue"){
           num = "5";
-          //rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "purple"){
           num = "6";
-          //rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "brown"){
           num = "7";
-          //rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          rtImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }
-        this.setState({rtMixId : silceId+num});
+
+        /*RenderCanvas*/
         if(canvasRt.indexOf(itemId) != -1){
           const str = canvasRt.replace(itemId, silceId+num);
           document.getElementById("rightImg").src = str;
+          document.getElementById("rightImg").style.backgroundImage.crossOrigin = '*';
         }else{
           if(canvasRt.indexOf(silceId) != -1){
             const s = canvasRt.substr(0, canvasRt.indexOf(silceId)+4) + num + canvasRt.substr(canvasRt.indexOf(silceId)+4+num.length);
             document.getElementById("rightImg").src = s;
+            document.getElementById("rightImg").style.backgroundImage.crossOrigin = '*';
+          }
+        }
+
+        /*CharacterList*/
+        if(listRt.indexOf(itemId) != -1){
+          const str = listRt.replace(itemId, silceId+num);
+          document.getElementById("listImgRt").style.backgroundImage = str;
+        }else{
+          if(listRt.indexOf(silceId) != -1){
+            const s = listRt.substr(0, listRt.indexOf(silceId)+4) + num + listRt.substr(listRt.indexOf(silceId)+4+num.length);
+            document.getElementById("listImgRt").style.backgroundImage = s;
           }
         }
       }else{
         if(ColorPicked == "black"){
           num = "0";
-          //ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "red"){
           num = "1";
-          //ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "orange"){
           num = "2";
-          //ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "yellow"){
           num = "3";
-          //ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "grin"){
           num = "4";
-          //ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "blue"){
           num = "5";
-          //ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "purple"){
           num = "6";
-          //ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }else if(ColorPicked == "brown"){
           num = "7";
-          //ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
+          ltImg.src = "https://maplestory.io/api/KMS/328/item/"+silceId+num+"/icon";
         }
-        this.setState({ltMixId : silceId+num});
+
+        /*RenderCanvas*/
         if(canvasLt.indexOf(itemId) != -1){
           const str = canvasLt.replace(itemId, silceId+num);
           document.getElementById("leftImg").src = str;
+          document.getElementById("leftImg").style.backgroundImage.crossOrigin = '*';
         }else{
           if(canvasLt.indexOf(silceId) != -1){
             const s = canvasLt.substr(0, canvasLt.indexOf(silceId)+4) + num + canvasLt.substr(canvasLt.indexOf(silceId)+4+num.length);
             document.getElementById("leftImg").src = s;
+            document.getElementById("leftImg").style.backgroundImage.crossOrigin = '*';
+          }
+        }
+
+        /*CharacterList*/
+        if(listLt.indexOf(itemId) != -1){
+          const str = listLt.replace(itemId, silceId+num);
+          document.getElementById("listImgLt").style.backgroundImage = str;
+        }else{
+          if(listLt.indexOf(silceId) != -1){
+            const s = listLt.substr(0, listLt.indexOf(silceId)+4) + num + listLt.substr(listLt.indexOf(silceId)+4+num.length);
+            document.getElementById("listImgLt").style.backgroundImage = s;
           }
         }
       }
@@ -159,6 +187,7 @@ class EquippedItems extends Component {
     var newopacity = (100-sliderValue)/100; // opacity [0.0-1.0]=
     rtImg.style.opacity = newopacity;
     document.getElementById("rightImg").style.opacity = newopacity;
+    document.getElementById("listImgRt").style.opacity = newopacity;
   }
 
   render() {

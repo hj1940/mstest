@@ -154,7 +154,7 @@ class CharacterCanvasElement extends Component {
               onError={this.showError.bind(this)}
               style={imgStyle}
               id='leftImg'
-              />
+              crossorigin='anonymous'/>
               <img
                 src={link}
                 alt=''
@@ -163,7 +163,7 @@ class CharacterCanvasElement extends Component {
                 onClick={onClick}
                 onError={this.showError.bind(this)}
                 id='rightImg'
-                />
+                crossorigin='anonymous'/>
               </div>
             ) : <div className='loading-character'>&nbsp;</div>
          }
