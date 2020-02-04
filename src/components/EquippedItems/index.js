@@ -86,7 +86,7 @@ class EquippedItems extends Component {
           num = "7";
         }
       //  this.props.equippedItems.push("Hairs");
-        console.log(this.props.equippedItems);
+        //console.log(this.props.equippedItems);
         /*RenderCanvas*/
         if(canvasRt.indexOf(itemId) != -1){
           const str = canvasRt.replace(itemId, silceId+num);
@@ -131,7 +131,7 @@ class EquippedItems extends Component {
         }else if(ColorPicked == "brown"){
           num = "7";
         }
-        this.props.equippedItems.Hair.id = silceId+num;
+        //this.props.equippedItems.Hair.id = silceId+num;
         /*RenderCanvas*/
         if(canvasLt.indexOf(itemId) != -1){
           const str = canvasLt.replace(itemId, silceId+num);
