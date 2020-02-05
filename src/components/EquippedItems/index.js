@@ -12,7 +12,9 @@ import Toggle from 'react-toggle'
 import textContent from 'react-addons-text-content'
 
 class EquippedItems extends Component {
-
+  constructor(props) {
+    super(props)
+  }
   selected(item){
 
     item.textContent = "∨";
@@ -59,6 +61,8 @@ class EquippedItems extends Component {
       }
     };
 
+
+
     if(e.target.classList.contains("select")) {
       console.log("selected already");
       this.unselected(e.target);
@@ -85,8 +89,9 @@ class EquippedItems extends Component {
         }else if(ColorPicked == "brown"){
           num = "7";
         }
-      //  this.props.equippedItems.push("Hairs");
-        //console.log(this.props.equippedItems);
+
+        this.props.colorChage(silceId+num)
+
         /*RenderCanvas*/
         if(canvasRt.indexOf(itemId) != -1){
           const str = canvasRt.replace(itemId, silceId+num);
@@ -131,7 +136,9 @@ class EquippedItems extends Component {
         }else if(ColorPicked == "brown"){
           num = "7";
         }
-        //this.props.equippedItems.Hair.id = silceId+num;
+
+        this.props.equippedItems.Hair.id = silceId+num;
+
         /*RenderCanvas*/
         if(canvasLt.indexOf(itemId) != -1){
           const str = canvasLt.replace(itemId, silceId+num);
@@ -297,7 +304,7 @@ class EquippedItems extends Component {
   }
 
   render() {
-    const { equippedItems, localized, name, skinId } = this.props
+    const { equippedItems, localized, name, skinId, ...otherProps } = this.props
 
     const isGMSRegion = localStorage['region'].toLowerCase() == 'kms'
     const hasName = name && name.length > 0

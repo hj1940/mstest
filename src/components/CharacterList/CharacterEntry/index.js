@@ -157,6 +157,43 @@ class CharacterEntry extends Component {
 
     const link = `https://maplestory.io/api/Character/${itemEntriesPayload}/${character.action}/${character.animating ? 'animated' : character.frame}?showears=${character.mercEars}&showLefEars=${character.illiumEars}&showHighLefEars=${character.highFloraEars}&resize=${character.zoom}&name=${encodeURI(character.name || '')}&flipX=${character.flipX}` + (character.includeBackground ? `&bgColor=${bgColorText}` : '')
 
+    /*IMG 2*/
+        let itemEntriesT = Object.values(character.selectedItems).filter(item => item.id && (item.visible === undefined || item.visible)).map(item => {
+          let itemEntry = {
+            itemId: Number(item.id),
+            version: "328",
+            region: "KMS"
+          }
+
+          if ((item.id >= 20000 && item.id < 30000) || (item.id >= 1010000 && item.id < 1020000)) itemEntry.animationName = character.emotion
+          if (item.region && item.region.toLowerCase() != 'kms') itemEntry.region = item.region
+          if (item.version && item.version.toLowerCase() != '328') itemEntry.version = item.version
+          if (item.hue) itemEntry.hue = item.hue
+          if (item.saturation != 1) itemEntry.saturation = item.saturation
+          if (item.contrast != 1) itemEntry.contrast = item.contrast
+          if (item.brightness != 1) itemEntry.brightness = item.brightness
+          if (item.alpha != 1) itemEntry.alpha = item.alpha
+          if (item.islot) itemEntry.islot = item.islot
+          if (item.vslot) itemEntry.vslot = item.vslot
+          if ((item.id >= 30000 && item.id < 49999) || (item.id >= 1010000 && item.id < 1020000)) itemEntry.itemId = character.newHair
+
+          return itemEntry
+        })
+
+        let backgroundColorT = JSON.parse(localStorage['backgroundColor'] || false) || {"hsl":{"h":0,"s":0,"l":0,"a":0},"hex":"transparent","rgb":{"r":0,"g":0,"b":0,"a":0},"hsv":{"h":0,"s":0,"v":0,"a":0},"oldHue":0,"source":"rgb"}
+        const bgColorTextT = `${backgroundColorT.rgb.r},${backgroundColorT.rgb.g},${backgroundColorT.rgb.b},${backgroundColorT.rgb.a}`
+
+        let itemEntriesPayloadT = JSON.stringify([
+          ...itemEntriesT,
+          { itemId: Number(character.skin), version: "210.1.1" },
+          { itemId: Number(character.skin) + 10000, version: "210.1.1"}
+        ])
+        itemEntriesPayloadT = encodeURIComponent(itemEntriesPayloadT.substr(1, itemEntriesPayloadT.length - 2))
+
+        const linkT = `https://maplestory.io/api/Character/${itemEntriesPayloadT}/${character.action}/${character.animating ? 'animated' : character.frame}?showears=${character.mercEars}&showLefEars=${character.illiumEars}&showHighLefEars=${character.highFloraEars}&resize=${character.zoom}&name=${encodeURI(character.name || '')}&flipX=${character.flipX}` + (character.includeBackground ? `&bgColor=${bgColorTextT}` : '')
+
+    /*//--IMG 2*/
+
     return (
       <Tooltip html={this.customizeCharacter(character)} delay={[100, 300]} position={canvasMode ? undefined : 'bottom'} interactive={true} theme='light' distance={400} arrow={true}>
         <div
@@ -169,7 +206,7 @@ class CharacterEntry extends Component {
           <div
             className={'character ' + (character.visible ? 'disabled ' : 'enabled ') + (isSelected ? 'active' : 'inactive')}
             style={{
-              backgroundImage: 'url('+link+')'
+              backgroundImage: 'url('+linkT+')'
             }}
             id="listImgRt"
             {...otherProps}>&nbsp;</div>

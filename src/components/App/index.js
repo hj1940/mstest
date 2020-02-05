@@ -186,6 +186,7 @@ class App extends Component {
       character.frame = character.frame || 0
       character.zoom = character.zoom || 1
       character.emotion = character.emotion || 'default'
+      character.newHair = ''
       character.skin = character.skin || 2000
       character.mercEars = character.mercEars || false
       character.illiumEars = character.illiumEars || false
@@ -224,6 +225,7 @@ class App extends Component {
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
     this.onSetRightSidebarOpen = this.onSetRightSidebarOpen.bind(this);
+    this.changEvent = this.changEvent.bind(this);
   }
 
   componentWillMount() {
@@ -274,6 +276,9 @@ class App extends Component {
     if (!found && this.state.colorPickerOpen) this.setState({ colorPickerOpen: false })
   }
 
+  changEvent(e){
+    this.state.characters[this.state.selectedIndex].newHair = e;
+  }
 
   render() {
     const {
@@ -331,10 +336,12 @@ class App extends Component {
            <Sidebar
              sidebar={<EquippedItems
                equippedItems={renderables[selectedIndex].selectedItems}
+               selectedIndex={renderables[selectedIndex]}
                onRemoveItem={this.userRemovedItem.bind(this)}
                name={renderables[selectedIndex].name}
                skinId={renderables[selectedIndex].skin}
                onUpdateItem={this.updateItem.bind(this)}
+               colorChage={this.changEvent}
                localized={localized}
                onRemoveItems={this.userRemovedItems.bind(this)} />}
                open={this.state.sidebarROpen}
