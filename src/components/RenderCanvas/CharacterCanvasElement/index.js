@@ -157,10 +157,11 @@ class CharacterCanvasElement extends Component {
       if (item.islot) itemEntry.islot = item.islot
       if (item.vslot) itemEntry.vslot = item.vslot
       if ((item.id >= 30000 && item.id < 49999) || (item.id >= 1010000 && item.id < 1020000)) itemEntry.itemId = character.newHair
+      //if ((item.id >= 20000 && item.id < 30000) || (item.id >= 1010000 && item.id < 1020000)) itemEntry.itemId = character.newFace
 
       return itemEntry
     })
-
+//console.log(itemEntriesT);
     let backgroundColorT = JSON.parse(localStorage['backgroundColor'] || false) || {"hsl":{"h":0,"s":0,"l":0,"a":0},"hex":"transparent","rgb":{"r":0,"g":0,"b":0,"a":0},"hsv":{"h":0,"s":0,"v":0,"a":0},"oldHue":0,"source":"rgb"}
     const bgColorTextT = `${backgroundColorT.rgb.r},${backgroundColorT.rgb.g},${backgroundColorT.rgb.b},${backgroundColorT.rgb.a}`
 

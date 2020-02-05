@@ -217,6 +217,8 @@ class EquippedItems extends Component {
           num = "7";
         }
 
+        this.props.colorEyeChage(silceIdFr+num+silceIdEd);
+
         /*RenderCanvas*/
         if(canvasRt.indexOf(itemId) != -1){
           const str = canvasRt.replace(itemId, silceIdFr+num+silceIdEd);
@@ -258,6 +260,8 @@ class EquippedItems extends Component {
         }else if(ColorPicked == "amethyst"){
           num = "7";
         }
+
+        this.props.equippedItems.Face.id = silceIdFr+num+silceIdEd;
 
         /*RenderCanvas*/
         if(canvasLt.indexOf(itemId) != -1){

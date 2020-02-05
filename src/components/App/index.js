@@ -187,6 +187,7 @@ class App extends Component {
       character.zoom = character.zoom || 1
       character.emotion = character.emotion || 'default'
       character.newHair = ''
+      character.newFace = ''
       character.skin = character.skin || 2000
       character.mercEars = character.mercEars || false
       character.illiumEars = character.illiumEars || false
@@ -226,6 +227,7 @@ class App extends Component {
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
     this.onSetRightSidebarOpen = this.onSetRightSidebarOpen.bind(this);
     this.changEvent = this.changEvent.bind(this);
+    this.changEventEye = this.changEventEye.bind(this);
   }
 
   componentWillMount() {
@@ -278,6 +280,10 @@ class App extends Component {
 
   changEvent(e){
     this.state.characters[this.state.selectedIndex].newHair = e;
+  }
+
+  changEventEye(e){
+    this.state.characters[this.state.selectedIndex].newFace = e;
   }
 
   render() {
@@ -342,6 +348,7 @@ class App extends Component {
                skinId={renderables[selectedIndex].skin}
                onUpdateItem={this.updateItem.bind(this)}
                colorChage={this.changEvent}
+               colorEyeChage={this.changEventEye}
                localized={localized}
                onRemoveItems={this.userRemovedItems.bind(this)} />}
                open={this.state.sidebarROpen}

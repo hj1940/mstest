@@ -176,6 +176,7 @@ class CharacterEntry extends Component {
           if (item.islot) itemEntry.islot = item.islot
           if (item.vslot) itemEntry.vslot = item.vslot
           if ((item.id >= 30000 && item.id < 49999) || (item.id >= 1010000 && item.id < 1020000)) itemEntry.itemId = character.newHair
+        //  if ((item.id >= 20000 && item.id < 29999) || (item.id >= 1010000 && item.id < 1020000)) itemEntry.itemId = character.newFace
 
           return itemEntry
         })
