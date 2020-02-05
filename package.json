@@ -2,11 +2,12 @@
   "name": "react-test",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://github.com/hj1940/mstest#readme",
+  "homepage": "https://hj1940.github.io/mstest",
   "dependencies": {
     "@icons/material": "^0.4.1",
     "axios": "^0.19.2",
     "express": "^4.17.1",
+    "gh-pages": "^2.2.0",
     "material-icons": "^0.3.1",
     "merge-images": "^1.1.0",
     "rc-align": "^3.0.0-rc.1",
@@ -33,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy" : "gh-pages -d build"
   },
   "devDependencies": {
     "react-scripts": "^3.1.2"
